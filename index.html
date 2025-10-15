@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shivani S Poojary — Portfolio</title>
+    <meta name="description" content="Minimal portfolio of Shivani S Poojary, B.E. 3rd year at AJIET." />
+
+    <style>
+      /* Design tokens: 1 primary, 1 accent, 3 neutrals (total 5 colors) */
+      :root {
+        --bg: #ffffff;
+        --fg: #0b0f14;     /* near-black */
+        --muted: #6b7280;  /* gray-500 */
+        --primary: #0ea5a4;/* teal-500 */
+        --accent: #f59e0b; /* amber-500 */
+        --card: #f5f7fa;   /* subtle surface */
+        --border: #e5e7eb;
+
+        --radius: 14px;
+        --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
+        --shadow-md: 0 6px 24px rgba(0,0,0,0.08);
+        --transition: 180ms ease;
+      }
+
+      [data-theme="dark"] {
+        --bg: #0b0f14;
+        --fg: #e5e7eb;
+        --muted: #9aa3af;
+        --card: #0f141b;
+        --border: #1f2937;
+        --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+        --shadow-md: 0 12px 36px rgba(0,0,0,0.35);
+      }
+
+      /* Base */
+      html, body {
+        height: 100%;
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        background: var(--bg);
+        color: var(--fg);
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1100px;
+        padding-inline: 1rem;
+        margin-inline: auto;
+      }
+
+      /* Skip link */
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: var(--primary);
+        color: #fff;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0 0 var(--radius) var(--radius);
+        transition: top var(--transition);
+        z-index: 50;
+      }
+      .skip-link:focus { top: 0; }
+
+      /* Header / Nav */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: color-mix(in srgb, var(--bg) 85%, transparent);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-block: 0.75rem;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+      }
+      .brand-dot {
+        width: 10px; height: 10px;
+        border-radius: 50%;
+        background: linear-gradient(130deg, var(--primary), var(--accent));
+        box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary) 18%, transparent);
+      }
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 0.9rem;
+        margin: 0; padding: 0;
+        align-items: center;
+      }
+      nav a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 0.95rem;
+        padding: 0.4rem 0.55rem;
+        border-radius: 8px;
+        transition: color var(--transition), background var(--transition);
+      }
+      nav a:hover { color: var(--fg); background: color-mix(in srgb, var(--card) 60%, transparent); }
+      nav a.active { color: var(--fg); background: color-mix(in srgb, var(--primary) 18%, transparent); }
+
+      .btn {
+        appearance: none;
+        border: 1px solid var(--border);
+        background: var(--fg);
+        color: var(--bg);
+        font-weight: 600;
+        padding: 0.55rem 0.9rem;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition);
+        box-shadow: var(--shadow-sm);
+      }
+      .btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+      .btn.secondary { background: transparent; color: var(--fg); }
+      .btn.ghost { background: color-mix(in srgb, var(--card) 50%, transparent); }
+
+      .theme-toggle {
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      /* Hero */
+      .hero {
+        padding-block: 3.5rem 2.5rem;
+      }
+      .hero-grid {
+        display: grid;
+        gap: 1.4rem;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .eyebrow .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        border: 1px solid var(--border);
+        padding: 0.25rem 0.55rem;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--card) 55%, transparent);
+      }
+      h1 {
+        font-size: clamp(1.8rem, 5vw, 3rem);
+        letter-spacing: -0.02em;
+        margin: 0.25rem 0 0.5rem 0;
+      }
+      .lede {
+        color: var(--muted);
+        max-width: 60ch;
+        font-size: 1.05rem;
+      }
+      .hero-cta {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+      }
+
+      /* Sections */
+      section {
+        padding-block: 2.25rem;
+        border-top: 1px solid var(--border);
+      }
+      section:first-of-type { border-top: none; }
+      .section-title {
+        font-size: 1.25rem;
+        margin: 0 0 1rem 0;
+        letter-spacing: -0.01em;
+      }
+      .muted { color: var(--muted); }
+
+      /* Cards / Layouts */
+      .cards {
+        display: grid;
+        gap: 1rem;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1rem;
+        box-shadow: var(--shadow-sm);
+        transition: transform var(--transition), box-shadow var(--transition);
+      }
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+      .row {
+        display: grid;
+        gap: 1rem;
+      }
+
+      /* Education timeline */
+      .edu {
+        display: grid;
+        gap: 1rem;
+      }
+      .edu-item {
+        display: grid;
+        gap: 0.35rem;
+      }
+      .edu-top {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 0.75rem;
+      }
+      .edu-badge {
+        font-size: 0.85rem;
+        color: var(--muted);
+        border: 1px solid var(--border);
+        padding: 0.2rem 0.5rem;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--card) 60%, transparent);
+      }
+
+      /* Skills */
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .tag {
+        border: 1px solid var(--border);
+        background: color-mix(in srgb, var(--card) 60%, transparent);
+        color: var(--fg);
+        padding: 0.35rem 0.55rem;
+        border-radius: 999px;
+        font-size: 0.9rem;
+      }
+
+      /* Footer */
+      footer {
+        border-top: 1px solid var(--border);
+        padding-block: 1.25rem 2.5rem;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      /* Responsive */
+      @media (min-width: 720px) {
+        .hero-grid { grid-template-columns: 1.3fr 1fr; align-items: center; }
+        .row { grid-template-columns: repeat(12, 1fr); }
+        .col-7 { grid-column: span 7; }
+        .col-5 { grid-column: span 5; }
+        .cards { grid-template-columns: repeat(3, 1fr); }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header>
+      <div class="container nav" role="navigation" aria-label="Primary">
+        <div class="brand">
+          <span class="brand-dot" aria-hidden="true"></span>
+          <span>Shivani S Poojary</span>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li>
+              <button id="theme-toggle" class="btn theme-toggle secondary" aria-pressed="false" aria-label="Toggle dark mode">
+                <span id="theme-label">Dark</span> mode
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="about" aria-labelledby="hero-title">
+        <div class="container hero-grid">
+          <div>
+            <div class="eyebrow">
+              <span class="pill">
+                <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--primary)"></span>
+                Available for internships
+              </span>
+            </div>
+            <h1 id="hero-title">Hi, I'm Shramish Poojary</h1>
+            <p class="lede">
+              B.E. 3rd year student at AJIET.
+              Passionate about building clean, user-friendly experiences with a focus on clarity, performance, and accessibility.
+            </p>
+            <div class="hero-cta">
+              <a class="btn" href="#projects">View Projects</a>
+              <a class="btn secondary" href="#contact">Contact Me</a>
+            </div>
+          </div>
+          <div class="card" aria-label="Quick profile">
+            <h2 class="section-title" style="margin-top:0">At a glance</h2>
+            <div class="row">
+              <div class="col-7">
+                <p class="muted" style="margin-top:0.25rem">College</p>
+                <p style="margin:0.25rem 0 0 0"><strong>AJIET</strong></p>
+                <p class="muted" style="margin:0.25rem 0 0 0">B.E., 3rd year — currently studying</p>
+              </div>
+              <div class="col-5">
+                <p class="muted" style="margin-top:0.25rem">Focus</p>
+                <p style="margin:0.25rem 0 0 0">Frontend, UI/UX, Web</p>
+              </div>
+            </div>
+            <div style="height:1px;background:var(--border);margin:1rem 0"></div>
+            <div class="tags" aria-label="Core skills">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="education" aria-labelledby="education-title">
+        <div class="container">
+          <h2 class="section-title" id="education-title">Education</h2>
+          <div class="edu">
+            <article class="card edu-item">
+              <div class="edu-top">
+                <h3 style="margin:0">B.E. — AJIET</h3>
+                <span class="edu-badge">3rd Year • Present</span>
+              </div>
+              <p class="muted" style="margin:0.25rem 0 0 0">Bachelor of Engineering — currently studying.</p>
+            </article>
+
+            <article class="card edu-item">
+              <div class="edu-top">
+                <h3 style="margin:0">PUC</h3>
+                <span class="edu-badge">Completed</span>
+              </div>
+              <p class="muted" style="margin:0.25rem 0 0 0">
+                Pre-University Course. Add your college name, stream (e.g., PCMB/PCMC), and year of completion.
+              </p>
+            </article>
+
+            <article class="card edu-item">
+              <div class="edu-top">
+                <h3 style="margin:0">SSLC</h3>
+                <span class="edu-badge">Completed</span>
+              </div>
+              <p class="muted" style="margin:0.25rem 0 0 0">
+                Secondary School Leaving Certificate. Add your school name and year of completion.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" aria-labelledby="projects-title">
+        <div class="container">
+          <h2 class="section-title" id="projects-title">Projects</h2>
+          <p class="muted" style="margin-bottom:1rem">A few highlights. Replace with your real work.</p>
+          <div class="cards">
+            <article class="card">
+              <h3 style="margin-top:0">Clean Portfolio Template</h3>
+              <p class="muted">Minimal, responsive portfolio with dark mode, built using only HTML, CSS, and JavaScript.</p>
+              <div class="hero-cta" style="margin-top:0.75rem">
+                <button class="btn ghost" onclick="alert('Add your project link here')">Live Demo</button>
+                <button class="btn secondary" onclick="alert('Add your source code link here')">Source</button>
+              </div>
+            </article>
+            <article class="card">
+              <h3 style="margin-top:0">UI Components Set</h3>
+              <p class="muted">Buttons, cards, and tags designed with a consistent token system and accessibility in mind.</p>
+              <div class="hero-cta" style="margin-top:0.75rem">
+                <button class="btn ghost" onclick="alert('Add your project link here')">Preview</button>
+                <button class="btn secondary" onclick="alert('Add your source code link here')">Source</button>
+              </div>
+            </article>
+            <article class="card">
+              <h3 style="margin-top:0">Responsive Layouts</h3>
+              <p class="muted">Mobile-first grids and smooth interactions with minimal code and clear structure.</p>
+              <div class="hero-cta" style="margin-top:0.75rem">
+                <button class="btn ghost" onclick="alert('Add your project link here')">Preview</button>
+                <button class="btn secondary" onclick="alert('Add your source code link here')">Source</button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills" aria-labelledby="skills-title">
+        <div class="container">
+          <h2 class="section-title" id="skills-title">Skills</h2>
+          <div class="tags">
+            <span class="tag">Semantic HTML</span>
+            <span class="tag">Responsive CSS</span>
+            <span class="tag">Flexbox & Grid</span>
+            <span class="tag">Accessible Design</span>
+            <span class="tag">Vanilla JS</span>
+            <span class="tag">Dark Mode</span>
+            <span class="tag">Design Tokens</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" aria-labelledby="contact-title">
+        <div class="container">
+          <h2 class="section-title" id="contact-title">Contact</h2>
+          <div class="row">
+            <div class="card col-7">
+              <p class="muted" style="margin-top:0">Let's talk about internships, projects, or collaborations.</p>
+              <div class="hero-cta" style="margin-top:0.75rem">
+                <a class="btn" href="mailto:youremail@example.com" aria-label="Email Shivani">Email Me</a>
+                <button class="btn secondary" id="copy-email" aria-label="Copy email to clipboard">Copy Email</button>
+              </div>
+            </div>
+            <div class="card col-5" aria-label="Links">
+              <p style="margin:0.25rem 0 0.5rem 0"><strong>Links</strong></p>
+              <ul class="muted" style="list-style:none;margin:0;padding:0;display:grid;gap:0.4rem">
+                <li><a href="#" onclick="alert('Add your LinkedIn URL')" style="text-decoration:none;color:inherit">LinkedIn</a></li>
+                <li><a href="#" onclick="alert('Add your GitHub URL')" style="text-decoration:none;color:inherit">GitHub</a></li>
+                <li><a href="#" onclick="alert('Add your resume file link')" style="text-decoration:none;color:inherit">Resume (PDF)</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <small>© <span id="year"></span> Shramish Poojary. Built with HTML, CSS, and JavaScript.</small>
+      </div>
+    </footer>
+
+    <script>
+      // Smoothly activate nav links based on scroll position
+      const sections = [...document.querySelectorAll("main section")];
+      const navLinks = [...document.querySelectorAll("header nav a")];
+
+      const spy = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute("id");
+            navLinks.forEach(a => {
+              a.classList.toggle("active", a.getAttribute("href") === "#" + id);
+            });
+          }
+        });
+      }, { rootMargin: "-40% 0px -55% 0px", threshold: 0.01 });
+
+      sections.forEach(s => spy.observe(s));
+
+      // Theme toggle with localStorage
+      const themeToggle = document.getElementById("theme-toggle");
+      const themeLabel = document.getElementById("theme-label");
+      const root = document.documentElement;
+
+      function applyTheme(mode) {
+        document.documentElement.setAttribute("data-theme", mode);
+        themeToggle.setAttribute("aria-pressed", mode === "dark" ? "true" : "false");
+        themeLabel.textContent = mode === "dark" ? "Light" : "Dark";
+        localStorage.setItem("shivani-theme", mode);
+      }
+
+      const saved = localStorage.getItem("shivani-theme");
+      if (saved === "dark" || (saved === null && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+        applyTheme("dark");
+      } else {
+        applyTheme("light");
+      }
+
+      themeToggle.addEventListener("click", () => {
+        const current = document.documentElement.getAttribute("data-theme");
+        applyTheme(current === "dark" ? "light" : "dark");
+      });
+
+      // Copy email
+      const copyBtn = document.getElementById("copy-email");
+      const email = "youremail@example.com"; // Replace with your email
+      copyBtn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(email);
+          copyBtn.textContent = "Copied!";
+          setTimeout(() => (copyBtn.textContent = "Copy Email"), 1400);
+        } catch {
+          alert("Copy failed. Email: " + email);
+        }
+      });
+
+      // Current year
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
